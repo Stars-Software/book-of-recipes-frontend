@@ -1,32 +1,16 @@
-import React from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { ThemeProvider } from 'styled-components';
-import { MainRouter } from '../navigation';
+import React from "react";
+import { ThemeProvider, createTheme } from "@mui/material";
+import { MainRouter } from "../router/main-router";
 
-import * as theme from '../theme';
-import * as Styled from './app.styled';
-import '../../style.css';
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      keepPreviousData: true,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: true,
-      cacheTime: Infinity
-    }
-  }
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
 });
 
 const AppContainer = () => (
   <ThemeProvider theme={theme}>
-    <Styled.GlobalStyles />
-    <QueryClientProvider client={queryClient}>
-      <MainRouter />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <MainRouter />
   </ThemeProvider>
 );
 
