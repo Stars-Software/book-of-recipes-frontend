@@ -4,6 +4,7 @@ import { Home } from "../home/home";
 import { ROUTER_KEYS } from "../common/consts/app-keys.const";
 import { Register } from "../register/register";
 import { Profile } from "../profile/profile";
+import { ProductsList } from "../products/products";
 
 export const MainRouter = () => (
   <Router>
@@ -11,6 +12,7 @@ export const MainRouter = () => (
       <Route element={<Home />} path={ROUTER_KEYS.HOME} />
       <Route element={<Register />} path={ROUTER_KEYS.REGISTER} />
       <Route element={<Profile />} path={ROUTER_KEYS.PROFILE} />
+      <Route element={<ProductsList />} path={ROUTER_KEYS.PRODUCTS} />
     </Routes>
   </Router>
 );

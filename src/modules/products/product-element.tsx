@@ -15,6 +15,7 @@ import { IProduct } from "../common/types/product.types";
 export const ProductItem: React.FC<IProduct> = (props) => {
   const { _id, title, amount, category_id } = props;
   const category = {};
+  
   return (
     <Card sx={{ minWidth: 345, margin: 3 }}>
       <CardContent>

@@ -12,6 +12,7 @@ import { Stack } from "@mui/system";
 import { NavLink } from "react-router-dom";
 import { ROUTER_KEYS } from "../common/consts/app-keys.const";
 import { FormContainer } from "../common/components/form/form.container";
+import { signInProfile } from "../../redux/thunks/profile.thunks";
 
 export const Login = () => {
   const formik = useFormik({
@@ -21,7 +22,7 @@ export const Login = () => {
       rememberMe: false,
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      signInProfile(values);
     },
   });
 

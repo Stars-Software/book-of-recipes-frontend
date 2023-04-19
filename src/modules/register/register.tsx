@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useFormik } from "formik";
 import {
   Button,
@@ -13,15 +13,21 @@ import {
 import { NavLink } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { FormContainer } from "../common/components/form/form.container";
+import { DropZone } from "../common/components/dropzone/dropzone";
 
 export const Register = () => {
+  const [isAgree, setIsAgree] = useState(false);
+
+  const checkBoxHandler = (e: ChangeEvent<HTMLInputElement>) =>
+    setIsAgree(e.target.checked);
+
   const formik = useFormik({
     initialValues: {
       name: "",
       email: "",
       password: "",
+      avatar: null,
       confirmPassword: "",
-      isAgree: false,
     },
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
@@ -73,6 +79,12 @@ export const Register = () => {
               onChange={formik.handleChange}
               value={formik.values.confirmPassword}
             />
+            <DropZone
+              id="avatar"
+              label="Upload your avatar"
+              accept={{ type: ["image/*"] }}
+              onChange={formik.setFieldValue}
+            />
             <Grid container>
               <Grid item xs>
                 <FormControlLabel
@@ -80,8 +92,8 @@ export const Register = () => {
                     <Checkbox
                       id="isAgree"
                       name="isAgree"
-                      onChange={formik.handleChange}
-                      value={formik.values.isAgree}
+                      onChange={checkBoxHandler}
+                      value={isAgree}
                     />
                   }
                   label="I agree with policy of company"
@@ -91,7 +103,7 @@ export const Register = () => {
                 <NavLink to={"/"}>{"Policy of our company"}</NavLink>
               </Grid>
             </Grid>
-            <Button disabled={!formik.values.isAgree} type="submit">
+            <Button disabled={!isAgree} type="submit">
               Submit
             </Button>
           </Stack>
