@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Home } from "../home/home";
 import { ROUTER_KEYS } from "../common/consts/app-keys.const";
-import { Register } from "../register/register";
-import { Profile } from "../profile/profile";
+import Register from "../register/register";
+import Profile from "../profile/page/profile-page";
 import { ProductsList } from "../products/products";
 
 export const MainRouter = () => (

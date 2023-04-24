@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuAppBar } from "../common/components/menu-app-bar/menu-app-bar";
+import { MenuAppBar } from "../../common/components/menu-app-bar/menu-app-bar";
 import {
   Button,
   Card,
@@ -13,11 +13,12 @@ import {
   Typography,
 } from "@mui/material";
 import { ProfileSettings } from "./settings/profile-settings";
+import { compose } from "@reduxjs/toolkit";
+import AuthRedirect from "../../auth/auth.container";
 
-export const Profile = () => {
+const ProfilePage = () => {
   return (
-    <>
-      <CssBaseline />
+    <CssBaseline>
       <MenuAppBar />
       <Container maxWidth="md">
         <Card variant="elevation" sx={{ width: "100%" }}>
@@ -48,6 +49,8 @@ export const Profile = () => {
           </CardActions>
         </Card>
       </Container>
-    </>
+    </CssBaseline>
   );
 };
+
+export default compose(AuthRedirect)(ProfilePage);

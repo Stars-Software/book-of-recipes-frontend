@@ -1,6 +1,6 @@
 import React from "react";
-import { DropZone } from "../../../common/components/dropzone/dropzone";
-import { FormContainer } from "../../../common/components/form/form.container";
+import { DropZone } from "../../../../common/components/dropzone/dropzone";
+import { FormContainer } from "../../../../common/components/form/form.container";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useFormik } from "formik";
 import { Button } from "@mui/material";
@@ -22,7 +22,6 @@ export const ChangeAvatar = () => {
           <DropZone
             id="avatar"
             label="Browse a file"
-            accept={{ type: ["image/*"] }}
             onChange={formik.setFieldValue}
           />
           <Button type="submit">Submit</Button>

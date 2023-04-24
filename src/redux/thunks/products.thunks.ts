@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { productService } from "../../modules/services/http-service/products.service";
+import { productService } from "../../services/http-service/products.service";
 import { setProducts } from "../slices/productsSlice";
 
 interface IOptions {

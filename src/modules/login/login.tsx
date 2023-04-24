@@ -12,9 +12,23 @@ import { Stack } from "@mui/system";
 import { NavLink } from "react-router-dom";
 import { ROUTER_KEYS } from "../common/consts/app-keys.const";
 import { FormContainer } from "../common/components/form/form.container";
-import { signInProfile } from "../../redux/thunks/profile.thunks";
+import { AppDispatch } from "../../redux/store/store";
+import { bindActionCreators } from "@reduxjs/toolkit";
+import { ConnectedProps, connect } from "react-redux";
+import { signInProfile } from "../../redux/thunks/auth.thunks";
 
-export const Login = () => {
+const mapDispatchToProps = (dispatch: AppDispatch) => {
+  return {
+    dispatch,
+    ...bindActionCreators({ signInProfile }, dispatch),
+  };
+};
+
+const connector = connect(null, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const Login: React.FC<PropsFromRedux> = ({ signInProfile }) => {
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -71,3 +85,5 @@ export const Login = () => {
     </FormContainer>
   );
 };
+
+export default connector(Login);

@@ -2,7 +2,7 @@ import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { Login } from "../login/login";
+import Login from "../login/login";
 
 export const Home = () => {
   return (

@@ -1,10 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {
+  ProfileAction,
+  ProfileState,
+} from "../../modules/common/types/profile.types";
+
+const initialState: ProfileState = {
+  geocode: null,
+  name: "",
+  email: "",
+  avatar: "",
+};
 
 const profileSlice = createSlice({
   name: "profile",
-  initialState: null,
+  initialState,
   reducers: {
-    setProfileData(state, action) {
+    setProfileData(state, action: ProfileAction) {
       const { payload } = action;
       state = payload;
     },

@@ -14,8 +14,23 @@ import { NavLink } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { FormContainer } from "../common/components/form/form.container";
 import { DropZone } from "../common/components/dropzone/dropzone";
+import { bindActionCreators } from "redux";
+import { AppDispatch } from "../../redux/store/store";
+import { ConnectedProps, connect } from "react-redux";
+import { signUpProfile } from "../../redux/thunks/auth.thunks";
 
-export const Register = () => {
+const mapDispatchToProps = (dispatch: AppDispatch) => {
+  return {
+    dispatch,
+    ...bindActionCreators({ signUpProfile }, dispatch),
+  };
+};
+
+const connector = connect(null, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const Register: React.FC<PropsFromRedux> = ({ signUpProfile }) => {
   const [isAgree, setIsAgree] = useState(false);
 
   const checkBoxHandler = (e: ChangeEvent<HTMLInputElement>) =>
@@ -29,8 +44,8 @@ export const Register = () => {
       avatar: null,
       confirmPassword: "",
     },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: ({ name, email, password, avatar }) => {
+      signUpProfile({ name, email, password, avatar });
     },
   });
 
@@ -50,7 +65,7 @@ export const Register = () => {
             <TextField
               id="name"
               name="name"
-              type="name"
+              type="text"
               label="Your name"
               onChange={formik.handleChange}
               value={formik.values.name}
@@ -82,7 +97,6 @@ export const Register = () => {
             <DropZone
               id="avatar"
               label="Upload your avatar"
-              accept={{ type: ["image/*"] }}
               onChange={formik.setFieldValue}
             />
             <Grid container>
@@ -112,3 +126,5 @@ export const Register = () => {
     </Container>
   );
 };
+
+export default connector(Register);

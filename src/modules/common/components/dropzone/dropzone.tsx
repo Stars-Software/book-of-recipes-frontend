@@ -1,21 +1,22 @@
 import { Box, Divider, Typography } from "@mui/material";
 import React from "react";
-import { Accept, useDropzone } from "react-dropzone";
+import { useDropzone } from "react-dropzone";
 
 interface IProps {
   id: string;
   label: string;
-  accept: Accept;
   onChange: (id: string, arg: any) => void;
 }
 
-export const DropZone: React.FC<IProps> = ({ onChange, accept, label, id }) => {
-  const onDrop = (acceptedFile: any) => onChange(id, acceptedFile);
+export const DropZone: React.FC<IProps> = ({ onChange, label, id }) => {
+  const onDrop = (files: any) => {
+    const formData = new FormData();
+    formData.append("file", files[0]);
+    onChange(id, formData);
+  };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept,
-    multiple: false,
   });
 
   return (
@@ -29,7 +30,7 @@ export const DropZone: React.FC<IProps> = ({ onChange, accept, label, id }) => {
         {...getRootProps()}
       >
         <Box>
-          <input {...getInputProps()} />
+          <input type="file" {...getInputProps()} />
         </Box>
         <Typography variant="h5">
           {isDragActive

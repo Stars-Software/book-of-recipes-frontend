@@ -1,28 +1,16 @@
-import { ILocation } from "./gecode.types";
+export type Geocode = {
+  lat: number;
+  lng: number;
+};
 
-export interface IProfileState {
-  _id: string | null;
-  name: string | null;
-  avatar: IAvatar | null;
-  location: ILocation | null;
-}
-
-export interface ISignIn {
-  email: string;
-  password: string;
-}
-
-export interface ISignUp extends ISignIn {
-  name: string;
-  avatar: IAvatar;
-}
-
-export interface IAvatar {
-  path: string;
-  lastModified: number;
-  lastModifiedDate: Date;
-  name: string;
-  size: number;
+export type ProfileAction = {
   type: string;
-  webkitRelativePath: string;
-}
+  payload: ProfileState;
+};
+
+export type ProfileState = {
+  geocode: Geocode | null;
+  name: string;
+  email: string;
+  avatar: string;
+};
