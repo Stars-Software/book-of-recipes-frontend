@@ -15,8 +15,9 @@ import {
 import { ProfileSettings } from "./settings/profile-settings";
 import { compose } from "@reduxjs/toolkit";
 import AuthRedirect from "../../auth/auth.container";
+import { ProfileState } from "../../common/types/profile.types";
 
-const ProfilePage = () => {
+const ProfilePage: React.FC<ProfileState> = ({ name, avatar }) => {
   return (
     <CssBaseline>
       <MenuAppBar />
@@ -26,14 +27,14 @@ const ProfilePage = () => {
             <CardMedia
               component="img"
               height="140"
-              image="/static/images/cards/contemplative-reptile.jpg"
+              image={avatar}
               alt="green iguana"
             />
           </CardActionArea>
           <CardContent>
             <Divider />
             <Typography gutterBottom variant="h5" component="div">
-              Your name
+              {name}
             </Typography>
             <Divider>
               <Typography variant="h5" color="text.secondary">
@@ -53,4 +54,4 @@ const ProfilePage = () => {
   );
 };
 
-export default compose(AuthRedirect)(ProfilePage);
+export default ProfilePage;

@@ -13,7 +13,7 @@ import { NavLink } from "react-router-dom";
 import { ROUTER_KEYS } from "../common/consts/app-keys.const";
 import { FormContainer } from "../common/components/form/form.container";
 import { AppDispatch } from "../../redux/store/store";
-import { bindActionCreators } from "@reduxjs/toolkit";
+import { bindActionCreators, compose } from "@reduxjs/toolkit";
 import { ConnectedProps, connect } from "react-redux";
 import { signInProfile } from "../../redux/thunks/auth.thunks";
 
