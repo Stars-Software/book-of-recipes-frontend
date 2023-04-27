@@ -13,8 +13,8 @@ import {
   Typography,
 } from "@mui/material";
 import { ProfileSettings } from "./settings/profile-settings";
-import { compose } from "@reduxjs/toolkit";
-import AuthRedirect from "../../auth/auth.container";
+
+
 import { ProfileState } from "../../common/types/profile.types";
 
 const ProfilePage: React.FC<ProfileState> = ({ name, avatar }) => {

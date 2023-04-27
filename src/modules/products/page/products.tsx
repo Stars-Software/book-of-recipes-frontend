@@ -5,17 +5,17 @@ import { IProduct } from "../../common/types/product.types";
 import { ProductItem } from "./product-element";
 
 type IProps = {
-  products: IProduct[];
+  list: IProduct[];
 };
 
-export const ProductsList: React.FC<IProps> = ({ products }) => {
+export const ProductsList: React.FC<IProps> = ({ list }) => {
   return (
     <>
       <CssBaseline />
       <MenuAppBar />
       <Box maxWidth="md">
-        {products.map((item: IProduct) => (
-          <ProductItem key={item._id!} {...item} />
+        {list.map((item: IProduct) => (
+          <ProductItem key={item.id} {...item} />
         ))}
       </Box>
     </>

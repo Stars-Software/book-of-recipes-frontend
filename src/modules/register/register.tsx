@@ -10,7 +10,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { FormContainer } from "../common/components/form/form.container";
 import { DropZone } from "../common/components/dropzone/dropzone";
@@ -18,6 +18,7 @@ import { bindActionCreators } from "redux";
 import { AppDispatch } from "../../redux/store/store";
 import { ConnectedProps, connect } from "react-redux";
 import { signUpProfile } from "../../redux/thunks/auth.thunks";
+import { ROUTER_KEYS } from "../common/consts/app-keys.const";
 
 const mapDispatchToProps = (dispatch: AppDispatch) => {
   return {
@@ -36,17 +37,21 @@ const Register: React.FC<PropsFromRedux> = ({ signUpProfile }) => {
   const checkBoxHandler = (e: ChangeEvent<HTMLInputElement>) =>
     setIsAgree(e.target.checked);
 
+  const navigate = useNavigate();
+
+  const onSubmit = (values: any) => {
+    const error = signUpProfile(values);
+    if (!error) return navigate(ROUTER_KEYS.PROFILE);
+  };
+
   const formik = useFormik({
     initialValues: {
       name: "",
       email: "",
       password: "",
       avatar: null,
-      confirmPassword: "",
     },
-    onSubmit: ({ name, email, password, avatar }) => {
-      signUpProfile({ name, email, password, avatar });
-    },
+    onSubmit,
   });
 
   return (
@@ -85,14 +90,6 @@ const Register: React.FC<PropsFromRedux> = ({ signUpProfile }) => {
               label="Password"
               onChange={formik.handleChange}
               value={formik.values.password}
-            />
-            <TextField
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              label="Enter password again"
-              onChange={formik.handleChange}
-              value={formik.values.confirmPassword}
             />
             <DropZone
               id="avatar"

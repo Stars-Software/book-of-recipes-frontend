@@ -4,6 +4,7 @@ class TokenService {
 
   setToken(token: string) {
     this.storage.setItem(this.fieldName, token);
+    return token;
   }
 
   getToken() {

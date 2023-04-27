@@ -28,6 +28,7 @@ export class HttpService {
     params: AxiosRequestConfig | object = {}
   ) {
     const headers = getHeaders(route);
+    console.log(headers)
     const response = await this.fetch.post(route, body, {
       ...headers,
       ...params,

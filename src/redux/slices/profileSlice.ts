@@ -4,20 +4,25 @@ import {
   ProfileState,
 } from "../../modules/common/types/profile.types";
 
-const initialState: ProfileState = {
-  geocode: null,
-  name: "",
-  email: "",
-  avatar: "",
+type InitialState = {
+  data: ProfileState | null;
+  loading: boolean;
+  error: Error | null;
+};
+
+const initialState: InitialState = {
+  data: null,
+  loading: false,
+  error: null,
 };
 
 const profileSlice = createSlice({
   name: "profile",
   initialState,
   reducers: {
-    setProfileData(state, action: ProfileAction) {
+    setProfileData(state: InitialState, action: ProfileAction) {
       const { payload } = action;
-      state = payload;
+      state.data = payload;
     },
   },
 });

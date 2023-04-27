@@ -13,7 +13,7 @@ import { Stack } from "@mui/system";
 import { IProduct } from "../../common/types/product.types";
 
 export const ProductItem: React.FC<IProduct> = (props) => {
-  const { _id, title, amount, category_id } = props;
+  const { id, title, amount, category_id } = props;
   const category = {};
   
   return (
