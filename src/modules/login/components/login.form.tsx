@@ -1,43 +1,30 @@
 import React from "react";
 import { useFormik } from "formik";
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  TextField,
-} from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Stack } from "@mui/system";
 import { NavLink } from "react-router-dom";
-import { ROUTER_KEYS } from "../common/consts/app-keys.const";
-import { FormContainer } from "../common/components/form/form.container";
-import { AppDispatch } from "../../redux/store/store";
-import { bindActionCreators, compose } from "@reduxjs/toolkit";
-import { ConnectedProps, connect } from "react-redux";
-import { signInProfile } from "../../redux/thunks/auth.thunks";
+import { ROUTER_KEYS } from "../../common/consts/app-keys.const";
+import { FormContainer } from "../../common/components/form/form.container";
+import { SignIn } from "../../common/types/auth.types";
+import { signInSchema } from "../../../validation/user.schemas";
 
-const mapDispatchToProps = (dispatch: AppDispatch) => {
-  return {
-    dispatch,
-    ...bindActionCreators({ signInProfile }, dispatch),
-  };
+type IProps = {
+  signInProfile: (value: SignIn) => void;
 };
 
-const connector = connect(null, mapDispatchToProps);
+const LoginForm: React.FC<IProps> = ({ signInProfile }) => {
+  const validationSchema = signInSchema;
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-const Login: React.FC<PropsFromRedux> = ({ signInProfile }) => {
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
-      rememberMe: false,
     },
     onSubmit: (values) => {
       signInProfile(values);
     },
+    validationSchema,
   });
 
   return (
@@ -55,24 +42,12 @@ const Login: React.FC<PropsFromRedux> = ({ signInProfile }) => {
           <TextField
             id="password"
             name="password"
-            type="password"
+            type="current-password"
             label="Password"
             onChange={formik.handleChange}
             value={formik.values.password}
           />
           <Grid container>
-            <Grid item xs>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    id="rememberMe"
-                    name="rememberMe"
-                    value={formik.values.rememberMe}
-                  />
-                }
-                label="Remember me"
-              />
-            </Grid>
             <Grid item>
               <NavLink to={ROUTER_KEYS.REGISTER}>
                 {"Don't have an account? Sign Up"}
@@ -86,4 +61,4 @@ const Login: React.FC<PropsFromRedux> = ({ signInProfile }) => {
   );
 };
 
-export default connector(Login);
+export default LoginForm;

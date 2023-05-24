@@ -24,10 +24,10 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(signUpProfile.rejected, (state, { payload }: any) => {
+    builder.addCase(signUpProfile.rejected, (state, action: any) => {
       state.authed = false;
       state.loading = false;
-      state.error = payload;
+      state.error = action;
     });
   },
 });

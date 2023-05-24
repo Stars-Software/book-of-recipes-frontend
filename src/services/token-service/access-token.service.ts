@@ -8,7 +8,9 @@ class TokenService {
   }
 
   getToken() {
-    return this.storage.getItem(this.fieldName);
+    console.log(this.storage.getItem(this.fieldName));
+    const token = this.storage.getItem(this.fieldName);
+    return token;
   }
 }
 

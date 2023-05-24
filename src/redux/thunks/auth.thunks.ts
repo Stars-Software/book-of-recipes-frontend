@@ -18,6 +18,8 @@ export const signInProfile = createAsyncThunk(
   }
 );
 
+//note: all thunks must be refactored!!!
+
 export const signUpProfile = createAsyncThunk(
   "auth/signUp",
   async (options: AuthFormData, { dispatch, rejectWithValue }) => {
@@ -25,8 +27,8 @@ export const signUpProfile = createAsyncThunk(
     try {
       const { accessToken } = await authService.signUp(data);
       tokenService.setToken(accessToken);
-      dispatch(setAuthed(true));
       await profileService.uploadAvatar(avatar!);
+      dispatch(setAuthed(true));
     } catch (error) {
       rejectWithValue(error);
     }

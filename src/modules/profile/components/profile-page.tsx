@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import { ProfileSettings } from "./settings/profile-settings";
 
-
 import { ProfileState } from "../../common/types/profile.types";
 
 const ProfilePage: React.FC<ProfileState> = ({ name, avatar }) => {
@@ -27,7 +26,7 @@ const ProfilePage: React.FC<ProfileState> = ({ name, avatar }) => {
             <CardMedia
               component="img"
               height="140"
-              image={avatar}
+              image={`http://localhost:3000/${avatar}`}
               alt="green iguana"
             />
           </CardActionArea>

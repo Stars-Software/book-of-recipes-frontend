@@ -10,38 +10,33 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { FormContainer } from "../common/components/form/form.container";
-import { DropZone } from "../common/components/dropzone/dropzone";
-import { bindActionCreators } from "redux";
-import { AppDispatch } from "../../redux/store/store";
-import { ConnectedProps, connect } from "react-redux";
-import { signUpProfile } from "../../redux/thunks/auth.thunks";
-import { ROUTER_KEYS } from "../common/consts/app-keys.const";
+import { FormContainer } from "../../common/components/form/form.container";
+import { DropZone } from "../../common/components/dropzone/dropzone";
+import { signUpSchema } from "../../../validation/user.schemas";
 
-const mapDispatchToProps = (dispatch: AppDispatch) => {
-  return {
-    dispatch,
-    ...bindActionCreators({ signUpProfile }, dispatch),
-  };
+type FormValues = {
+  name: string;
+  email: string;
+  password: string;
+  avatar: FormData | null;
 };
 
-const connector = connect(null, mapDispatchToProps);
+type Props = {
+  signUpProfile: any;
+};
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
+const RegisterForm: React.FC<Props> = ({ signUpProfile }) => {
+  const validationSchema = signUpSchema;
 
-const Register: React.FC<PropsFromRedux> = ({ signUpProfile }) => {
   const [isAgree, setIsAgree] = useState(false);
 
   const checkBoxHandler = (e: ChangeEvent<HTMLInputElement>) =>
     setIsAgree(e.target.checked);
 
-  const navigate = useNavigate();
-
-  const onSubmit = (values: any) => {
-    const error = signUpProfile(values);
-    if (!error) return navigate(ROUTER_KEYS.PROFILE);
+  const onSubmit = (values: FormValues) => {
+    signUpProfile(values);
   };
 
   const formik = useFormik({
@@ -52,6 +47,7 @@ const Register: React.FC<PropsFromRedux> = ({ signUpProfile }) => {
       avatar: null,
     },
     onSubmit,
+    validationSchema,
   });
 
   return (
@@ -74,6 +70,8 @@ const Register: React.FC<PropsFromRedux> = ({ signUpProfile }) => {
               label="Your name"
               onChange={formik.handleChange}
               value={formik.values.name}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
             />
             <TextField
               id="email"
@@ -82,6 +80,8 @@ const Register: React.FC<PropsFromRedux> = ({ signUpProfile }) => {
               label="Email Address"
               onChange={formik.handleChange}
               value={formik.values.email}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
             />
             <TextField
               id="password"
@@ -90,11 +90,14 @@ const Register: React.FC<PropsFromRedux> = ({ signUpProfile }) => {
               label="Password"
               onChange={formik.handleChange}
               value={formik.values.password}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
             />
             <DropZone
               id="avatar"
               label="Upload your avatar"
               onChange={formik.setFieldValue}
+              error={formik.touched.avatar && Boolean(formik.errors.avatar)}
             />
             <Grid container>
               <Grid item xs>
@@ -124,4 +127,4 @@ const Register: React.FC<PropsFromRedux> = ({ signUpProfile }) => {
   );
 };
 
-export default connector(Register);
+export default RegisterForm;
