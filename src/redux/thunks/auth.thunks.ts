@@ -7,13 +7,13 @@ import { setAuthed } from "../slices/auth.slice";
 
 export const signInProfile = createAsyncThunk(
   "auth/signIn",
-  async (options: SignIn, { dispatch, rejectWithValue }) => {
+  async (formData: SignIn, { dispatch, rejectWithValue }) => {
     try {
-      const { accessToken } = await authService.signIn(options);
-      tokenService.setToken(accessToken);
+      const { data } = await authService.signIn(formData);
+      tokenService.setToken(data.accessToken);
       dispatch(setAuthed(true));
-    } catch (error) {
-      rejectWithValue(error);
+    } catch (error: any) {
+      return rejectWithValue(error.response.data.error);
     }
   }
 );
@@ -22,15 +22,15 @@ export const signInProfile = createAsyncThunk(
 
 export const signUpProfile = createAsyncThunk(
   "auth/signUp",
-  async (options: AuthFormData, { dispatch, rejectWithValue }) => {
-    const { avatar, ...data } = options;
+  async (formData: AuthFormData, { dispatch, rejectWithValue }) => {
+    const { avatar, ...userData } = formData;
     try {
-      const { accessToken } = await authService.signUp(data);
-      tokenService.setToken(accessToken);
+      const { data } = await authService.signUp(userData);
+      tokenService.setToken(data.accessToken);
       await profileService.uploadAvatar(avatar!);
       dispatch(setAuthed(true));
-    } catch (error) {
-      rejectWithValue(error);
+    } catch (error: any) {
+      return rejectWithValue(error.response.data.error);
     }
   }
 );

@@ -6,10 +6,11 @@ import { ROUTER_KEYS } from "../common/consts/app-keys.const";
 
 const AuthRedirect = (Component: React.FC<any>) => {
   const RedirectComponent: React.FC<any> = (props) => {
-    const { authed, loading } = useSelector((state: RootState) => state.auth);
+    const { authed, loading, error } = useSelector((state: RootState) => state.auth);
     if (!authed && !loading) {
       return <Navigate to={ROUTER_KEYS.HOME} />;
     }
+    if (error) return <></>
     return <Component {...props} />;
   };
   return RedirectComponent;

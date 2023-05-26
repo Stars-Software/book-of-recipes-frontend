@@ -9,6 +9,9 @@ export class ProfileService extends HttpService {
     return await this.post("user/upload", data);
   }
 
+  async getAvatar(path: string) {
+    return await this.get(`user/avatar/images/${path}`);
+  }
 }
 
 export const profileService = new ProfileService();

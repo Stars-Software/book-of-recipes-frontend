@@ -12,5 +12,7 @@ export type ProfileState = {
   geocode: Geocode | null;
   name: string;
   email: string;
-  avatar: string;
+  avatar: {
+    filename: string;
+  };
 };

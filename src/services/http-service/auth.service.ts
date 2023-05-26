@@ -10,7 +10,9 @@ export class AuthService extends HttpService {
     return await this.post("user/register", options);
   }
 
-  async refreshToken() {}
+  async refreshSession() {
+    return await this.get("user/refresh");
+  }
 }
 
 export const authService = new AuthService();

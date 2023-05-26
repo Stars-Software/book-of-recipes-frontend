@@ -29,11 +29,11 @@ const ProfileContainer: React.FC<PropsFromRedux> = ({ fetchProfile }) => {
     return <Typography>{error.message}</Typography>;
   }
 
-  if (loading) {
+  if (loading || !data) {
     return <Preloader />;
   }
 
-  return <ProfilePage {...data!} />;
+  return <ProfilePage {...data} />;
 };
 
 export default connector(AuthRedirect(ProfileContainer));

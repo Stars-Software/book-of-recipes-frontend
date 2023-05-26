@@ -4,8 +4,13 @@ import { setProfileData } from "../slices/profileSlice";
 
 export const fetchProfile = createAsyncThunk(
   "profile/fetchProfile",
-  async (_, { dispatch }) => {
-    const response = await profileService.getProfile();
-    return dispatch(setProfileData(response));
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await profileService.getProfile();
+      const { data } = response;
+      return dispatch(setProfileData(data));
+    } catch (error) {
+      rejectWithValue(error);
+    }
   }
 );
