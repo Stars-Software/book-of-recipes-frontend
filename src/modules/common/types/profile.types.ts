@@ -3,13 +3,17 @@ export type Geocode = {
   lng: number;
 };
 
+export type AuthAction = {
+  type: string;
+  payload: boolean;
+};
+
 export type ProfileAction = {
   type: string;
   payload: ProfileState;
 };
 
 export type ProfileState = {
-  geocode: Geocode | null;
   name: string;
   email: string;
   avatar: {

@@ -2,16 +2,17 @@ import React, { useEffect } from "react";
 import { AppDispatch, RootState } from "../../redux/store/store";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { ConnectedProps, connect, useSelector } from "react-redux";
-import { signUpProfile } from "../../redux/thunks/auth.thunks";
+
 import { useNavigate } from "react-router-dom";
 import { ROUTER_KEYS } from "../common/consts/app-keys.const";
 import RegisterForm from "./components/register.form";
+import { signUpProfile } from "../../redux/thunks/profile.thunks";
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 const RegisterContainer: React.FC<PropsFromRedux> = (props) => {
   const navigate = useNavigate();
-  const { authed, error } = useSelector((state: RootState) => state.auth);
+  const { authed } = useSelector((state: RootState) => state.profile);
 
   useEffect(() => {
     if (authed) {
@@ -19,7 +20,6 @@ const RegisterContainer: React.FC<PropsFromRedux> = (props) => {
     }
   }, [authed]);
 
-  if (error) return <p>{error}</p>; //write an Error Component
 
   return <RegisterForm {...props} />;
 };

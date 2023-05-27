@@ -38,11 +38,13 @@ const LoginForm: React.FC<IProps> = ({ signInProfile }) => {
             label="Email"
             onChange={formik.handleChange}
             value={formik.values.email}
+            autoComplete="email"
           />
           <TextField
             id="password"
             name="password"
-            type="current-password"
+            type="password"
+            autoComplete="current-password"
             label="Password"
             onChange={formik.handleChange}
             value={formik.values.password}

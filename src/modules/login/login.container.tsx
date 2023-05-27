@@ -4,13 +4,14 @@ import { AppDispatch, RootState } from "../../redux/store/store";
 import { useNavigate } from "react-router-dom";
 import { ROUTER_KEYS } from "../common/consts/app-keys.const";
 import { bindActionCreators } from "@reduxjs/toolkit";
-import { signInProfile } from "../../redux/thunks/auth.thunks";
+
 import LoginForm from "./components/login.form";
+import { signInProfile } from "../../redux/thunks/profile.thunks";
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 const LoginContainer: React.FC<PropsFromRedux> = (props) => {
-  const { authed, error } = useSelector((state: RootState) => state.auth);
+  const { authed } = useSelector((state: RootState) => state.profile);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,8 +19,6 @@ const LoginContainer: React.FC<PropsFromRedux> = (props) => {
       navigate(ROUTER_KEYS.PROFILE);
     }
   }, [authed]);
-
-  if (error) return <p>{error}</p>; //write an Error Component
 
   return <LoginForm {...props} />;
 };
