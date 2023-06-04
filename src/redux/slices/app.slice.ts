@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isPending } from "@reduxjs/toolkit";
 
 type AppError = {
   message: string;
@@ -32,9 +32,10 @@ const appSlice = createSlice({
       }
     );
     builder.addMatcher(
-      (action) => action.type.endsWith("/fulfilled"),
+      (action) => action.type.endsWith("/fulfilled") || action.type.endsWith("/rejected"),
       (state) => {
-        state.loading = false;
+        console.log(Object.keys(state).some(isPending))
+        state.loading = Object.keys(state).some(isPending);
       }
     );
   },

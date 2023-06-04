@@ -60,11 +60,13 @@ const AuthRedirect = (Component: React.FC<any>) => {
         memoizedLogOut();
         navigate(ROUTER_KEYS.HOME);
       }
-    }, [error, memoizedRefreshSession]);
+    }, [error, loading, memoizedRefreshSession, memoizedLogOut, navigate]);
 
     useEffect(() => {
+      if (authed) {
         memoizedGetGeoCode();
-    }, []);
+      }
+    }, [authed, memoizedGetGeoCode]);
 
     return <Component {...props} />;
   };

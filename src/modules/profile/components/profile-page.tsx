@@ -16,6 +16,8 @@ import { ProfileState } from "../../common/types/profile.types";
 import MenuAppBar from "../../common/components/menu-app-bar/menu-app-bar";
 
 const ProfilePage: React.FC<ProfileState> = React.memo(({ name, avatar }) => {
+  const avatarImageUrl = `http://localhost:4200/user/avatar/images/${avatar.filename}`;
+
   return (
     <CssBaseline>
       <MenuAppBar />
@@ -25,7 +27,7 @@ const ProfilePage: React.FC<ProfileState> = React.memo(({ name, avatar }) => {
             <CardMedia
               component="img"
               height="140"
-              src={`http://localhost:4200/user/avatar/images/${avatar.filename}`}
+              src={avatarImageUrl}
               alt="green iguana"
             />
           </CardActionArea>

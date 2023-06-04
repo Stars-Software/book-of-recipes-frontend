@@ -5,6 +5,7 @@ import { ROUTER_KEYS } from "../common/consts/app-keys.const";
 import ProfileContainer from "../profile/profile-container";
 import ProductsContainer from "../products/products.container";
 import RegisterContainer from "../register/register.container";
+import SnackBar from "../snackbar/snackbar.component";
 
 export const MainRouter = () => (
   <Router>
@@ -14,5 +15,6 @@ export const MainRouter = () => (
       <Route element={<ProfileContainer />} path={ROUTER_KEYS.PROFILE} />
       <Route element={<ProductsContainer />} path={ROUTER_KEYS.PRODUCTS} />
     </Routes>
+    <SnackBar />
   </Router>
 );
