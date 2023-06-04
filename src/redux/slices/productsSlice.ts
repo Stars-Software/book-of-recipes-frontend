@@ -1,16 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IProduct } from "../../modules/common/types/product.types";
+import {
+  Product,
+  ProductCategory,
+} from "../../modules/common/types/product.types";
 
 type IState = {
-  data: IProduct[] | null;
-  loading: boolean;
-  error: Error | null;
+  data: Product[] | null;
+  categories: ProductCategory[] | null;
 };
 
 const initialState: IState = {
   data: null,
-  loading: false,
-  error: null,
+  categories: null,
 };
 
 const productsSlice = createSlice({
@@ -23,17 +24,20 @@ const productsSlice = createSlice({
     },
     updateProduct(state: IState, action) {
       const { id, amount } = action.payload;
-      state.data = state.data!.map((item: IProduct) => {
+      state.data = state.data!.map((item: Product) => {
         if ((item.id = id)) item.amount = amount;
         return item;
       });
     },
-  },
-  extraReducers: (builder) => {
-    // builder.addCase(
-    // );
+    setCategories(state: IState, { payload }) {
+      state.categories = payload;
+    },
   },
 });
 
 export default productsSlice.reducer;
-export const { setProducts } = productsSlice.actions;
+export const {
+  setProducts,
+  updateProduct,
+  setCategories,
+} = productsSlice.actions;

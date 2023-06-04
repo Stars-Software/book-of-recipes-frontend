@@ -10,3 +10,8 @@ export type SignUp = SignIn & {
 export type AuthFormData = SignUp & {
   avatar: FormData | null;
 };
+
+export type AuthResponse = {
+  accessToken: string;
+  refreshToken: string;
+};

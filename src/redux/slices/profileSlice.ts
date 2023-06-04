@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   AuthAction,
+  GeoCodeAction,
   Geocode,
   ProfileAction,
   ProfileState,
@@ -28,8 +29,11 @@ const profileSlice = createSlice({
     setAuthed(state: InitialState, { payload }: AuthAction) {
       state.authed = payload;
     },
+    setGeoCode(state: InitialState, { payload }: GeoCodeAction) {
+      state.geocode = payload;
+    },
   },
 });
 
 export default profileSlice.reducer;
-export const { setProfileData, setAuthed } = profileSlice.actions;
+export const { setProfileData, setAuthed, setGeoCode } = profileSlice.actions;

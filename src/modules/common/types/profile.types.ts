@@ -1,6 +1,6 @@
 export type Geocode = {
-  lat: number;
-  lng: number;
+  latitude: number;
+  longitude: number;
 };
 
 export type AuthAction = {
@@ -11,6 +11,11 @@ export type AuthAction = {
 export type ProfileAction = {
   type: string;
   payload: ProfileState;
+};
+
+export type GeoCodeAction = {
+  type: string;
+  payload: Geocode | null;
 };
 
 export type ProfileState = {

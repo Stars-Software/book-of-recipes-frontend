@@ -1,7 +1,14 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import { getHeaders } from "./headers.service";
 
 const API_URL = "http://localhost:4200/";
+
+type ServerErrorResponse = {
+  error: {
+    code: string;
+    message: string;
+  };
+};
 
 export class HttpService {
   public baseURL: string;
@@ -15,14 +22,17 @@ export class HttpService {
     this.fetch = fetch;
     this.fetch.interceptors.response.use(
       (response) => response,
-      (error) => {
+      (error: AxiosError<ServerErrorResponse | any>) => {
+        if (error.response) {
+          throw error.response.data.error;
+        }
         throw error;
       }
     );
   }
 
   async get(route: string) {
-    const headers = getHeaders();
+    const headers = getHeaders(route);
     return await this.fetch.get(route, headers);
   }
 
@@ -44,7 +54,7 @@ export class HttpService {
   }
 
   async delete(route: string) {
-    const headers = getHeaders();
+    const headers = getHeaders(route);
     return await this.fetch.delete(route, headers);
   }
 }

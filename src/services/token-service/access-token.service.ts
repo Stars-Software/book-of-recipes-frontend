@@ -1,19 +1,19 @@
 class TokenService {
-  private storage = localStorage;
   private fieldName = "accessToken";
 
   setToken(token: string) {
-    this.storage.setItem(this.fieldName, token);
+    console.log(token)
+    localStorage.setItem(this.fieldName, token);
     return token;
   }
 
   getToken() {
-    const token = this.storage.getItem(this.fieldName);
+    const token = localStorage.getItem(this.fieldName);
     return token;
   }
 
   clear() {
-    localStorage.clear();
+    localStorage.removeItem(this.fieldName);
   }
 }
 

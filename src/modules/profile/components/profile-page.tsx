@@ -1,5 +1,4 @@
 import React from "react";
-import { MenuAppBar } from "../../common/components/menu-app-bar/menu-app-bar";
 import {
   Button,
   Card,
@@ -14,8 +13,9 @@ import {
 } from "@mui/material";
 import { ProfileSettings } from "./settings/profile-settings";
 import { ProfileState } from "../../common/types/profile.types";
+import MenuAppBar from "../../common/components/menu-app-bar/menu-app-bar";
 
-const ProfilePage: React.FC<ProfileState> = ({ name, avatar }) => {
+const ProfilePage: React.FC<ProfileState> = React.memo(({ name, avatar }) => {
   return (
     <CssBaseline>
       <MenuAppBar />
@@ -50,6 +50,6 @@ const ProfilePage: React.FC<ProfileState> = ({ name, avatar }) => {
       </Container>
     </CssBaseline>
   );
-};
+});
 
 export default ProfilePage;

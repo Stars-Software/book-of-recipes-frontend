@@ -8,6 +8,10 @@ export class ProductService extends HttpService {
   async getProductById(id: string) {
     return await this.get(`products/${id}`);
   }
+
+  async getCategories() {
+    return await this.get("products/categories");
+  }
 }
 
 export const productService = new ProductService();

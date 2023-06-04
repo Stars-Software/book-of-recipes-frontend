@@ -1,4 +1,5 @@
-import { SignIn, SignUp } from "../../modules/common/types/auth.types";
+import { AuthResponse, SignIn, SignUp } from "../../modules/common/types/auth.types";
+import { ResponseError } from "../../modules/common/types/error.types";
 import { HttpService } from "./implementation/http.service";
 
 export class ProfileService extends HttpService {
@@ -8,6 +9,10 @@ export class ProfileService extends HttpService {
 
   async signUp(options: SignUp) {
     return await this.post("user/register", options);
+  }
+
+  async logOut() {
+    return await this.get("user/logOut");
   }
 
   async refreshSession() {
