@@ -1,5 +1,5 @@
-import { HttpService } from "./implementation/http.service";
-import { ROUTER_KEYS } from "../../modules/common/consts/app-keys.const";
+import { HttpService } from "./implementation/http.service" ;
+import { ROUTER_KEYS } from "../../modules/common/consts/app-keys.const" ;
 
 export class ProductService extends HttpService {
   async getProducts(category: string, search: string) {
