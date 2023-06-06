@@ -3,28 +3,28 @@ import { productService } from "../../services/http-service/products.service";
 import { setCategories, setProducts } from "../slices/productsSlice";
 import { setError } from "../slices/app.slice";
 
-interface IOptions {
-  category_id?: string;
-  search?: string;
-  product_id?: string;
-}
+export const fetchProducts = createAsyncThunk(
+  "products/fetchProducts",
+  async (categoryId: string | undefined, { dispatch }) => {
+    try {
+      const { data } = await productService.getProducts(categoryId!);
+      dispatch(setProducts(data));
+    } catch (error) {
+      console.log(error)
+      dispatch(setError(error));
+    }
+  }
+);
 
-// export const fetchProducts = createAsyncThunk(
-//   "products/fetchProducts",
-//   async ({ category_id, search }: IOptions) => {
+// export const fetchProductById = createAsyncThunk(
+//   "products/fetchProductById",
+//   async ({ id }: IOptions) => {
 //     try {
-      // const { data} = await productService.getProducts()
+//       const  = await productService.getProductById(id!);
+//       return setProducts(response);
 //     } catch (error) {}
 //   }
 // );
-
-export const fetchProductById = createAsyncThunk(
-  "products/fetchProductById",
-  async ({ product_id }: IOptions) => {
-    const response = await productService.getProductById(product_id!);
-    return setProducts(response);
-  }
-);
 
 export const fetchProductCategories = createAsyncThunk(
   "products/fetchProductCategories",

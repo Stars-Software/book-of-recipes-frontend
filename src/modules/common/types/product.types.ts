@@ -5,8 +5,3 @@ export type Product = {
   category_id: string;
   user_id: string;
 };
-
-export type ProductCategory = {
-  title: string;
-  id: string;
-};

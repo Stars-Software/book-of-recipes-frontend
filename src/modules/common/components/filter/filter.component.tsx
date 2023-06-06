@@ -1,14 +1,15 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { ProductCategory } from "../../types/product.types";
 
 type Props<T> = {
   options: T[];
+  value: string | undefined;
+  onChange: (arg: string) => void;
 };
 
-const Filter: React.FC<Props<ProductCategory>> = ({ options }) => {
-  const getLabel = (option: ProductCategory) => option.title;
+const Filter: React.FC<Props<any>> = ({ options }) => {
+  const getLabel = (option: any) => option.title;
   return (
     <Autocomplete
       disablePortal
