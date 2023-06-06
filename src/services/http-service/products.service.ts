@@ -1,8 +1,8 @@
 import { HttpService } from "./implementation/http.service";
 
 export class ProductService extends HttpService {
-  async getProducts(category: string, search: string) {
-    return await this.get(`products/all?category=${category}&search=${search}`);
+  async getProducts(id: string) {
+    return await this.get(`products/?categoryId=${id}`);
   }
 
   async getProductById(id: string) {

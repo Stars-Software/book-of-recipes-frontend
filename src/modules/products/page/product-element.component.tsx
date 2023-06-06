@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Stack } from "@mui/system";
-import { Product, ProductCategory } from "../../common/types/product.types";
+import { Product } from "../../common/types/product.types";
 
 export const ProductItem: React.FC<Product> = (props) => {
   const { id, title, amount, category_id } = props;

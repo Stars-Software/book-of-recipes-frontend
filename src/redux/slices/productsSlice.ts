@@ -1,12 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  Product,
-  ProductCategory,
-} from "../../modules/common/types/product.types";
+import { Product } from "../../modules/common/types/product.types";
 
 type IState = {
   data: Product[] | null;
-  categories: ProductCategory[] | null;
+  categories: any[] | null;
 };
 
 const initialState: IState = {

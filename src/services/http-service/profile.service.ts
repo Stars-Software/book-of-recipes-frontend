@@ -1,5 +1,4 @@
-import { AuthResponse, SignIn, SignUp } from "../../modules/common/types/auth.types";
-import { ResponseError } from "../../modules/common/types/error.types";
+import { SignIn, SignUp } from "../../modules/common/types/auth.types";
 import { HttpService } from "./implementation/http.service";
 
 export class ProfileService extends HttpService {
