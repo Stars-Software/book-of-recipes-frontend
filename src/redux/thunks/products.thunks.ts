@@ -5,26 +5,25 @@ import { setError } from "../slices/app.slice";
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async (categoryId: string | undefined, { dispatch }) => {
+  async (categoryId: string, { dispatch }) => {
     try {
-      const { data } = await productService.getProducts(categoryId!);
+      const { data } = await productService.getProducts(categoryId);
       dispatch(setProducts(data));
     } catch (error) {
-      console.log(error)
+      console.log(error);
       dispatch(setError(error));
     }
   }
 );
 
-// export const fetchProductById = createAsyncThunk(
-//   "products/fetchProductById",
-//   async ({ id }: IOptions) => {
-//     try {
-//       const  = await productService.getProductById(id!);
-//       return setProducts(response);
-//     } catch (error) {}
-//   }
-// );
+export const updateProduct = createAsyncThunk(
+  "products/updateProduct",
+  async (productId: string, data: any) => {
+    try {
+      await productService.updateProduct(productId, data);
+    } catch (error) {}
+  }
+);
 
 export const fetchProductCategories = createAsyncThunk(
   "products/fetchProductCategories",

@@ -4,3 +4,4 @@ export const ROUTER_KEYS = {
   PROFILE: "/profile",
   PRODUCTS: "/products",
 };
+

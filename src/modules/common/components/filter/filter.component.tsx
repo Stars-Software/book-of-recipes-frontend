@@ -2,21 +2,37 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
-type Props<T> = {
-  options: T[];
-  value: string | undefined;
-  onChange: (arg: string) => void;
+type Option = {
+  id: string;
+  title: string;
 };
 
-const Filter: React.FC<Props<any>> = ({ options }) => {
-  const getLabel = (option: any) => option.title;
+type Props<T extends Option> = {
+  options: T[];
+  value: string;
+  handler: (arg: string) => void;
+};
+
+const Filter = <T extends Option>({ options, value, handler }: Props<T>) => {
+  const getLabel = (option: T) => option.title;
+
+  const onChange = (_event: React.ChangeEvent<{}>, value: T | null) => {
+    if (!value) {
+      handler("");
+    } else {
+      handler(value.id);
+    }
+  };
+
   return (
     <Autocomplete
       disablePortal
       id="combo-box-demo"
+      onChange={onChange}
       options={options}
+      value={options.find((option) => option.id === value) || null}
       getOptionLabel={getLabel}
-      sx={{ width: 300 }}
+      sx={{ maxWidth: 250 }}
       renderInput={(params) => <TextField {...params} label="Movie" />}
     />
   );

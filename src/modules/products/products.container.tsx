@@ -3,7 +3,7 @@ import { ConnectedProps, connect, useSelector } from "react-redux";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../../redux/store/store";
 import AuthRedirect from "../auth/auth.container";
-import { ProductsList } from "./page/products.page.component";
+import { ProductsList } from "./components/products.page.component";
 import Preloader from "../common/components/preloader/preloader";
 import {
   fetchProductCategories,

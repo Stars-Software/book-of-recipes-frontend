@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Product } from "../../modules/common/types/product.types";
 
 type IState = {
-  data: Product[] | null;
+  data: any[] | null;
   categories: any[] | null;
 };
 
@@ -15,9 +15,8 @@ const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    setProducts(state: IState, action) {
-      const { products } = action.payload;
-      state.data = products;
+    setProducts(state: IState, { payload }) {
+      state.data = payload;
     },
     updateProduct(state: IState, action) {
       const { id, amount } = action.payload;
