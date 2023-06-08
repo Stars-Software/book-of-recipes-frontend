@@ -3,5 +3,6 @@ export const ROUTER_KEYS = {
   REGISTER: "/register",
   PROFILE: "/profile",
   PRODUCTS: "/products",
+  RECIPES: "/recipes",
   NEW: "/new",
 };
