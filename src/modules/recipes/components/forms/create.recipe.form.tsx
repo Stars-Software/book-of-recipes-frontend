@@ -132,9 +132,8 @@ const CreateRecipeForm: React.FC<{}> = () => {
             {formik.values.products.map((product, index) => (
               <div key={index}>
                 <Filter
-                  label="Product"
                   options={data}
-                  name={`products[${index}].id`}
+                  // name={`products[${index}].id`}
                   value={product.id}
                   handler={(id) =>
                     formik.setFieldValue(`products[${index}].id`, id)

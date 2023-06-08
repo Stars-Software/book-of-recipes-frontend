@@ -49,8 +49,8 @@ const ProductsContainer: React.FC<PropsFromRedux> = ({
       Component={ProductItem}
       list={data}
       categories={categories}
-      filter={filter}
-      filterHandler={setFilter}
+      // filter={filter}
+      // filterHandler={setFilter}
       navigation={ROUTER_KEYS.PRODUCTS}
     />
   );

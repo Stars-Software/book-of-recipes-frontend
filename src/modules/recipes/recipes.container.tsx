@@ -25,7 +25,6 @@ const ProductsContainer: React.FC<PropsFromRedux> = ({
   fetchRecipes,
 }) => {
 
-  const [filter, setFilter] = useState<string>("");
   const { data, categories } = useSelector((state: RootState) => state.recipes);
 
   useEffect(() => {
@@ -33,8 +32,9 @@ const ProductsContainer: React.FC<PropsFromRedux> = ({
   }, [fetchRecipeCategories]);
 
   useEffect(() => {
-    fetchRecipes(filter);
-  }, [fetchRecipes, filter]);
+    fetchRecipes('');
+  }, [fetchRecipes]);
+
 
   if (!data || !categories) {
     return <Preloader />;
@@ -45,8 +45,6 @@ const ProductsContainer: React.FC<PropsFromRedux> = ({
       Component={RecipeItem}
       list={data}
       categories={categories}
-      filter={filter}
-      filterHandler={setFilter}
       navigation={ROUTER_KEYS.RECIPES_NEW}
     />
   );
