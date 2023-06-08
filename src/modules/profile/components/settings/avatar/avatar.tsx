@@ -4,12 +4,10 @@ import { FormContainer } from "../../../../common/components/form/form.container
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useFormik } from "formik";
 import { Button } from "@mui/material";
-
+import {avatarInitialValues as initialValues} from "../../../../../modules/common/consts/initialValues.const"
 export const ChangeAvatar = () => {
   const formik = useFormik({
-    initialValues: {
-      avatar: null,
-    },
+    initialValues,
     onSubmit: (values) => {
       return console.log(values);
     },

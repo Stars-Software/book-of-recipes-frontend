@@ -18,7 +18,7 @@ import { createProductThunk } from "../../../../redux/thunks/products.thunks";
 import Preloader from "../../../common/components/preloader/preloader";
 import AuthRedirect from "../../../auth/auth.container";
 import { bindActionCreators } from "@reduxjs/toolkit";
-
+import {productInitialValues as initialValues} from "../../../../modules/common/consts/initialValues.const"
 const mapDispatchToProps = (dispatch: AppDispatch) => {
   return bindActionCreators({ createProductThunk }, dispatch);
 };
@@ -39,11 +39,7 @@ const CreateProductForm: React.FC<PropsFromRedux> = ({
   };
 
   const formik = useFormik({
-    initialValues: {
-      title: "",
-      amount: "",
-      categoryId: "",
-    },
+    initialValues,
     onSubmit,
   });
 
