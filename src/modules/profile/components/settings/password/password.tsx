@@ -9,15 +9,13 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import {passwordInitialValues as initialValues} from "../../../../common/consts/initialValues.const";
 
 export const ChangePasswordForm = () => {
   const [hidden, setHidden] = useState(false);
 
   const formik = useFormik({
-    initialValues: {
-      password: "",
-      confirmPassword: "",
-    },
+    initialValues,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },

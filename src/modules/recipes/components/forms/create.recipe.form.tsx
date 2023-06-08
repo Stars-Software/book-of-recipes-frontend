@@ -21,13 +21,14 @@ import { createRecipeThunk, fetchRecipeCategories } from "../../../../redux/thun
 import { RootState } from "../../../../redux/store/store";
 import {FormContainer} from "../../../common/components/form/form.container";
 import Filter from "../../../common/components/filter/filter.component";
+import {recipeInitialValues as initialValues} from "../../../../../src/modules/common/consts/initialValues.const"
 
 type RecipeProduct = {
   id: string;
   amount: number;
 };
 
-type InitialState = {
+export type InitialState = {
   title: string;
   description: string;
   private: boolean;
@@ -35,13 +36,7 @@ type InitialState = {
   products: RecipeProduct[];
 };
 
-const initialValues: InitialState = {
-  title: "",
-  description: "",
-  private: false,
-  categoryId: "",
-  products: [],
-};
+
 
 const CreateRecipeForm: React.FC<{}> = () => {
   const { categories } = useSelector((state: RootState) => state.recipes);

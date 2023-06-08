@@ -8,6 +8,7 @@ import { ROUTER_KEYS } from "../../common/consts/app-keys.const";
 import { FormContainer } from "../../common/components/form/form.container";
 import { SignIn } from "../../common/types/auth.types";
 import { signInSchema } from "../../../validation/user.schemas";
+import {loginInitialValues as initialValues} from "../../../modules/common/consts/initialValues.const"
 
 type IProps = {
   signInProfile: (value: SignIn) => void;
@@ -17,10 +18,7 @@ const LoginForm: React.FC<IProps> = ({ signInProfile }) => {
   const validationSchema = signInSchema;
 
   const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
+    initialValues,
     onSubmit: (values) => {
       signInProfile(values);
     },

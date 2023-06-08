@@ -15,6 +15,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { FormContainer } from "../../common/components/form/form.container";
 import { DropZone } from "../../common/components/dropzone/dropzone";
 import { signUpSchema } from "../../../validation/user.schemas";
+import {registerInitialValues as initialValues} from "../../../modules/common/consts/initialValues.const"
 
 type FormValues = {
   name: string;
@@ -40,12 +41,7 @@ const RegisterForm: React.FC<Props> = ({ signUpProfile }) => {
   };
 
   const formik = useFormik({
-    initialValues: {
-      name: "",
-      email: "",
-      password: "",
-      avatar: null,
-    },
+    initialValues,
     onSubmit,
     validationSchema,
   });
