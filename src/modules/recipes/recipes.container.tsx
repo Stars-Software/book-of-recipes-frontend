@@ -1,28 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { connect, ConnectedProps, useSelector } from "react-redux";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../../redux/store/store";
-import { ConnectedProps, connect, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import AuthRedirect from "../auth/auth.container";
+import Preloader from "../common/components/preloader/preloader";
+import List from "../common/components/list/list";
+import { ROUTER_KEYS } from "../common/consts/app-keys.const";
+import { RecipeItem } from "./components/element/recipe.element";
 import {
   fetchRecipeCategories,
   fetchRecipes,
 } from "../../redux/thunks/recipe.thunks";
-import Preloader from "../common/components/preloader/preloader";
-import AuthRedirect from "../auth/auth.container";
-import { RecipeList } from "./components/recipes.page";
 
 const mapDispatchToProps = (dispatch: AppDispatch) => {
-  return bindActionCreators({ fetchRecipes, fetchRecipeCategories }, dispatch);
+  return bindActionCreators({ fetchRecipeCategories, fetchRecipes }, dispatch);
 };
 
 const connector = connect(null, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-const RecipeContainer: React.FC<PropsFromRedux> = ({
+const ProductsContainer: React.FC<PropsFromRedux> = ({
   fetchRecipeCategories,
   fetchRecipes,
 }) => {
+
   const [filter, setFilter] = useState<string>("");
   const { data, categories } = useSelector((state: RootState) => state.recipes);
 
@@ -33,13 +35,21 @@ const RecipeContainer: React.FC<PropsFromRedux> = ({
   useEffect(() => {
     fetchRecipes(filter);
   }, [fetchRecipes, filter]);
- 
+
+  if (!data || !categories) {
+    return <Preloader />;
+  }
+
   return (
-    <RecipeList
+    <List
+      Component={RecipeItem}
+      list={data}
+      categories={categories}
       filter={filter}
       filterHandler={setFilter}
+      navigation={ROUTER_KEYS.RECIPES_NEW}
     />
   );
 };
 
-export default connector(AuthRedirect(RecipeContainer));
+export default connector(AuthRedirect(ProductsContainer));
