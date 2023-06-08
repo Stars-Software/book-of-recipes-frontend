@@ -1,61 +1,117 @@
-import React from "react";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useFormik } from "formik";
-import { Stack, TextField } from "@mui/material";
+import React, { useEffect } from "react";
+import { TextField, Button, Divider } from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useDispatch, useSelector } from "react-redux";
-import { updateProductThunk } from "../../../../redux/thunks/products.thunks";
+import { Container, CssBaseline } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { ROUTER_KEYS } from "../../../common/consts/app-keys.const";
+import Preloader from "../../../common/components/preloader/preloader";
+import { fetchProducts } from "../../../../redux/thunks/products.thunks";
+import { updateRecipeThunk } from "../../../../redux/thunks/recipe.thunks";
+import { RootState } from "../../../../redux/store/store";
 import { FormContainer } from "../../../common/components/form/form.container";
 import Filter from "../../../common/components/filter/filter.component";
-import { RootState } from "../../../../redux/store/store";
 
 type Props = {
   id: string;
-  categoryId: string;
-  amount: number;
+  products: any[];
+  title: string;
+  description: string;
 };
 
-const UpdateProductForm: React.FC<Props> = React.memo(
-  ({ id, categoryId, amount }) => {
-    const { categories } = useSelector((state: RootState) => state.products);
+const UpdateRecipeForm: React.FC<Props> = (props) => {
+  const { id, products, title, description } = props;
 
-    const dispatch = useDispatch<any>();
+  const { data } = useSelector((state: RootState) => state.products);
+  const dispatch = useDispatch<any>();
 
-    const onSubmit = (values: any) => {
-      dispatch(updateProductThunk(values));
-    };
+  useEffect(() => {
+    if (!data) dispatch(fetchProducts(""));
+  }, []);
 
-    const formik = useFormik({
-      initialValues: {
-        id,
-        categoryId,
-        amount,
-      },
-      onSubmit,
+  const navigate = useNavigate();
+
+  const onSubmit = (values: any) => {
+    dispatch(updateRecipeThunk({ ...values, id }));
+    navigate(ROUTER_KEYS.RECIPES);
+  };
+
+  const formik = useFormik({
+    initialValues: { products, title, description },
+    onSubmit,
+  });
+
+  if (!data) return <Preloader />;
+
+  const handleAddProduct = () => {
+    formik.setValues({
+      ...formik.values,
+      products: [...formik.values.products, { id: "", amount: 0 }],
     });
+  };
 
-    return (
-      <FormContainer text="Update" Icon={LockOutlinedIcon}>
+  const handleRemoveProduct = (index: number) => {
+    formik.setValues({
+      ...formik.values,
+      products: formik.values.products.filter((_, i) => i !== index),
+    });
+  };
+
+  return (
+    <Container
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: "50px",
+      }}
+    >
+      <CssBaseline />
+      <FormContainer text="Create Recipe" Icon={LockOutlinedIcon}>
         <form onSubmit={formik.handleSubmit}>
-          <Stack gap={2}>
-            <TextField
-              id="amount"
-              name="amount"
-              label="Change amount"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.amount}
-            />
-            {/* <Filter
-              options={categories!}
-              value={formik.values.categoryId}
-              handler={(id: string) => formik.setFieldValue("categoryId", id)}
-            /> */}
-            <button type="submit">Submit</button>
-          </Stack>
+          {formik.values.products.map((product, index) => (
+            <div key={index}>
+              <Filter
+                options={data}
+                value={product.id}
+                handler={(id) =>
+                  formik.setFieldValue(`products[${index}].id`, id)
+                }
+              />
+              <TextField
+                label="Amount"
+                type="number"
+                name={`products[${index}].amount`}
+                value={product.amount}
+                onChange={formik.handleChange}
+              />
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => handleRemoveProduct(index)}
+              >
+                Remove Product
+              </Button>
+              <br />
+            </div>
+          ))}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleAddProduct}
+          >
+            Add Product
+          </Button>
+          <Divider />
+          <Button type="submit" variant="contained" color="primary">
+            Submit
+          </Button>
         </form>
       </FormContainer>
-    );
-  }
-);
+    </Container>
+  );
+};
 
-export default UpdateProductForm;
+export default UpdateRecipeForm;

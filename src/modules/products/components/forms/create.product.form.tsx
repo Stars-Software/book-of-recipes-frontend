@@ -81,11 +81,11 @@ const CreateProductForm: React.FC<PropsFromRedux> = ({
             onChange={formik.handleChange}
             value={formik.values.amount}
           />
-          {/* <Filter
+          <Filter
             options={categories}
             value={formik.values.categoryId}
             handler={(id) => formik.setFieldValue("categoryId", id)}
-          /> */}
+          />
           <Button type="submit" variant="contained" color="primary">
             Submit
           </Button>

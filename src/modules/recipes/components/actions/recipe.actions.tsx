@@ -14,9 +14,10 @@ import { deleteRecipeThunk } from "../../../../redux/thunks/recipe.thunks";
 
 type Props = {
   id: string;
-  categoryId: string;
-  amount: number;
-  categories: any[];
+  userId: string;
+  products: any[];
+  title: string;
+  description: string;
 };
 
 const RecipeAction: React.FC<Props> = React.memo((props) => {

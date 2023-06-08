@@ -17,6 +17,9 @@ const productsSlice = createSlice({
     setProducts(state: IState, { payload }) {
       state.data = payload;
     },
+    createProduct(state:IState, { payload}) {
+      state.data!.push(payload)
+    },
     updateProduct(state: IState, { payload }) {
       const { id } = payload;
       state.data = state.data!.map((item: any) => {
@@ -43,4 +46,5 @@ export const {
   updateProduct,
   setCategories,
   deleteProduct,
+  createProduct,
 } = productsSlice.actions;

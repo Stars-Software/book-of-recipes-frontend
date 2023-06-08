@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect, ConnectedProps, useSelector } from "react-redux";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../../redux/store/store";
@@ -27,7 +27,6 @@ const ProductsContainer: React.FC<PropsFromRedux> = ({
   fetchProductCategories,
   fetchProducts,
 }) => {
-  const [filter, setFilter] = useState<string>("");
   const { data, categories } = useSelector(
     (state: RootState) => state.products
   );
@@ -37,8 +36,8 @@ const ProductsContainer: React.FC<PropsFromRedux> = ({
   }, [fetchProductCategories]);
 
   useEffect(() => {
-    fetchProducts(filter);
-  }, [fetchProducts, filter]);
+    fetchProducts("");
+  }, [fetchProducts]);
 
   if (!data || !categories) {
     return <Preloader />;
@@ -49,9 +48,7 @@ const ProductsContainer: React.FC<PropsFromRedux> = ({
       Component={ProductItem}
       list={data}
       categories={categories}
-      // filter={filter}
-      // filterHandler={setFilter}
-      navigation={ROUTER_KEYS.PRODUCTS}
+      navigation={ROUTER_KEYS.PRODUCTS_NEW}
     />
   );
 };

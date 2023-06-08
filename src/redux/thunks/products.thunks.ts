@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { productService } from "../../services/http-service/products.service";
 import {
+  createProduct,
   deleteProduct,
   setCategories,
   setProducts,
@@ -25,7 +26,11 @@ export const createProductThunk = createAsyncThunk(
   "products/createProduct",
   async (values: any, { dispatch }) => {
     try {
-      await productService.createProduct(values);
+      const product = await productService.createProduct(values);
+      const { data } = await productService.getProductById(
+        product.data.productId
+      );
+      dispatch(createProduct(data));
     } catch (error) {
       dispatch(setError(error));
     }

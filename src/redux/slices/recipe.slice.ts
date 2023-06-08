@@ -18,13 +18,9 @@ const recipeSlice = createSlice({
       state.data = payload;
     },
     updateRecipe(state: IState, { payload }) {
-    //   const { id } = payload;
-    //   state.data = state.data!.map((item: any) => {
-    //     if (item.id === id) {
-    //       item = payload;
-    //     }
-    //     return item;
-    //   });
+      state.data = state.data!.map((item: any) => {
+        if (item.id === payload.id) return payload;
+      });
     },
     deleteRecipe(state: IState, { payload }) {
       state.data = state.data!.filter((item: any) => {

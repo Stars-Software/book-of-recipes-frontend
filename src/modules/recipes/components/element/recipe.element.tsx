@@ -10,24 +10,39 @@ import {
   Typography,
 } from "@mui/material";
 import { Stack } from "@mui/system";
-import ProductActions from "../actions/recipe.actions";
+import RecipeActions from "../actions/recipe.actions";
 
 type Props = {
   id: string;
   title: string;
-  amount: number;
+  description: string;
+  products: any[];
   categoryId: string;
-  categories: any[];
+  userId: string;
+  recipe_category: {
+    title: string;
+    id: string;
+  };
 };
 
 export const RecipeItem: React.FC<Props> = (props) => {
   const {
     id,
     title,
-    amount,
+    userId,
+    description,
     categoryId,
-    categories,
+    products,
+    recipe_category,
   } = props;
+
+  const renderedComponents = (data: any[]) => {
+    console.log(data)
+    return data.map((item: any) => (
+      <Chip label={`${item.title} : ${item.recipe_products.amount}`} />
+    ));
+  };
+
   return (
     <Card sx={{ minWidth: 345, margin: 3 }}>
       <CardActionArea>
@@ -46,16 +61,22 @@ export const RecipeItem: React.FC<Props> = (props) => {
             </Typography>
           </Divider>
           <Typography variant="body2" color="text.secondary">
-            Amount: <Chip label={amount} />
+            Amount: <Chip label={description} />
           </Typography>
+          <Divider>
+            <Typography variant="body2" color="text.secondary">
+              {renderedComponents(products)}
+            </Typography>
+          </Divider>
           <Typography variant="body2" color="text.secondary">
-            {/* Category: <Chip label={product_categories.title} /> */}
+            Category: <Chip label={recipe_category.title} />
           </Typography>
-          <ProductActions
+          <RecipeActions
             id={id}
-            categoryId={categoryId}
-            amount={amount}
-            categories={categories}
+            description={description}
+            title={title}
+            userId={userId}
+            products={products}
           />
         </Stack>
       </CardContent>

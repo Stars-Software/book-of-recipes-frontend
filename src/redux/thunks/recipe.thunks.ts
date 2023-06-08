@@ -9,7 +9,7 @@ import {
 } from "../slices/recipe.slice";
 
 export const fetchRecipes = createAsyncThunk(
-  "Recipes/fetchRecipes",
+  "recipes/fetchRecipes",
   async (categoryId: string, { dispatch }) => {
     try {
       const { data } = await recipeService.getAll(categoryId);
@@ -21,7 +21,7 @@ export const fetchRecipes = createAsyncThunk(
 );
 
 export const createRecipeThunk = createAsyncThunk(
-  "Recipes/createRecipe",
+  "recipes/createRecipe",
   async (values: any, { dispatch }) => {
     try {
       await recipeService.createRecipe(values);
@@ -32,7 +32,7 @@ export const createRecipeThunk = createAsyncThunk(
 );
 
 export const updateRecipeThunk = createAsyncThunk(
-  "Recipes/updateRecipe",
+  "recipes/updateRecipe",
   async (values: any, { dispatch }) => {
     try {
       const { data } = await recipeService.updateRecipe(values);
@@ -44,7 +44,7 @@ export const updateRecipeThunk = createAsyncThunk(
 );
 
 export const deleteRecipeThunk = createAsyncThunk(
-  "Recipes/deleRecipe",
+  "recipes/deleteRecipe",
   async (id: string, { dispatch }) => {
     try {
       await recipeService.deleteRecipe(id);
@@ -56,7 +56,7 @@ export const deleteRecipeThunk = createAsyncThunk(
 );
 
 export const fetchRecipeCategories = createAsyncThunk(
-  "Recipes/fetchRecipeCategories",
+  "recipes/fetchRecipeCategories",
   async (_, { dispatch }) => {
     try {
       const { data } = await recipeService.getCategories();
