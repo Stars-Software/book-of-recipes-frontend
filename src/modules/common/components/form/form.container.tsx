@@ -12,13 +12,16 @@ export const FormContainer: React.FC<Props> = ({ text, Icon, children }) => {
     <Box
       sx={{
         my: 8,
-        mx: 4,
+        mx: "auto",
+        p: 4,
         display: "flex",
         flexDirection: "column",
         gap: 2,
         alignItems: "center",
+        maxWidth: 400,
       }}
       component={Paper}
+      elevation={3}
     >
       <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
         <Icon />

@@ -3,12 +3,14 @@ import { connect, ConnectedProps, useSelector } from "react-redux";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../../redux/store/store";
 import AuthRedirect from "../auth/auth.container";
-import { ProductsList } from "./components/products.page.component";
 import Preloader from "../common/components/preloader/preloader";
 import {
   fetchProductCategories,
   fetchProducts,
 } from "../../redux/thunks/products.thunks";
+import List from "../common/components/list/list";
+import { ProductItem } from "./components/element/product-element.component";
+import { ROUTER_KEYS } from "../common/consts/app-keys.const";
 
 const mapDispatchToProps = (dispatch: AppDispatch) => {
   return bindActionCreators(
@@ -42,14 +44,14 @@ const ProductsContainer: React.FC<PropsFromRedux> = ({
     return <Preloader />;
   }
 
-  console.log("render");
-
   return (
-    <ProductsList
+    <List
+      Component={ProductItem}
       list={data}
       categories={categories}
-      filter={filter}
-      filterHandler={setFilter}
+      // filter={filter}
+      // filterHandler={setFilter}
+      navigation={ROUTER_KEYS.PRODUCTS}
     />
   );
 };

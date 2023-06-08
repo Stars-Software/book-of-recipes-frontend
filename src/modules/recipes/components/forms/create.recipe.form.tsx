@@ -19,7 +19,7 @@ import {
 } from "../../../../redux/thunks/products.thunks";
 import { createRecipeThunk, fetchRecipeCategories } from "../../../../redux/thunks/recipe.thunks";
 import { RootState } from "../../../../redux/store/store";
-import {FormContainer} from "../../../common/components/form/form.container";
+import { FormContainer } from "../../../common/components/form/form.container";
 import Filter from "../../../common/components/filter/filter.component";
 
 type RecipeProduct = {
@@ -96,7 +96,7 @@ const CreateRecipeForm: React.FC<{}> = () => {
       }}
     >
       <CssBaseline />
-      <FormContainer text="Change password" Icon={LockOutlinedIcon}>
+      <FormContainer text="Create Recipe" Icon={LockOutlinedIcon}>
         <form onSubmit={formik.handleSubmit}>
           <Stack spacing={2}>
             <TextField
@@ -132,9 +132,8 @@ const CreateRecipeForm: React.FC<{}> = () => {
             {formik.values.products.map((product, index) => (
               <div key={index}>
                 <Filter
-                  label="Product"
                   options={data}
-                  name={`products[${index}].id`}
+                  // name={`products[${index}].id`}
                   value={product.id}
                   handler={(id) =>
                     formik.setFieldValue(`products[${index}].id`, id)

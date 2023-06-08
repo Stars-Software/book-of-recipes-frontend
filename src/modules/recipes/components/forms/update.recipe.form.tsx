@@ -45,11 +45,11 @@ const UpdateProductForm: React.FC<Props> = React.memo(
               onChange={formik.handleChange}
               value={formik.values.amount}
             />
-            <Filter
+            {/* <Filter
               options={categories!}
               value={formik.values.categoryId}
               handler={(id: string) => formik.setFieldValue("categoryId", id)}
-            />
+            /> */}
             <button type="submit">Submit</button>
           </Stack>
         </form>

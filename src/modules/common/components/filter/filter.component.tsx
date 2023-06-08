@@ -1,6 +1,5 @@
 import React from "react";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
+import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 
 type Option = {
   id: string;
@@ -8,36 +7,28 @@ type Option = {
 };
 
 type Props<T extends Option> = {
-  id?: string;
-  name?: string;
-  label?: string;
   options: T[];
   value: string;
-  handler: (arg: string) => void;
+  handler: (arg: any) => void;
 };
 
 const Filter = <T extends Option>(props: Props<T>) => {
-  const { handler, options, value, label, ...ids } = props;
-  const getLabel = (option: T) => option.title;
+  const { options, handler, value } = props;
 
-  const onChange = (_event: React.ChangeEvent<{}>, value: T | null) => {
-    if (!value) return handler("");
-    return handler(value.id);
-  };
+  const handleChange = (event: any) => {
+    handler(event.target.value)
+  }
 
   return (
-    <Autocomplete
-      {...ids}
-      disablePortal
-      onChange={onChange}
-      options={options}
-      value={options.find((option) => option.id === value) || null}
-      getOptionLabel={getLabel}
-      sx={{ maxWidth: 250 }}
-      renderInput={(params) => (
-        <TextField {...params} label={label ? label : ""} />
-      )}
-    />
+    <FormControl fullWidth sx={{maxWidth: 300}}>
+      <InputLabel id="category-label">Category</InputLabel>
+      <Select value={value} labelId="category-label" onChange={handleChange}>
+        <MenuItem value="">None</MenuItem>
+        {options.map((c) => (
+          <MenuItem value={c.id}>{c.title}</MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 };
 
