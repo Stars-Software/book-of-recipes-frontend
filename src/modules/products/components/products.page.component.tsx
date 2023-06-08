@@ -19,7 +19,7 @@ export const ProductsList: React.FC<IProps> = React.memo((props) => {
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate(ROUTER_KEYS.PRODUCTS + ROUTER_KEYS.NEW);
+    navigate(ROUTER_KEYS.PRODUCTS_NEW);
   };
 
   return (
@@ -37,7 +37,7 @@ export const ProductsList: React.FC<IProps> = React.memo((props) => {
           width: "100%",
           justifyContent: "center",
           alignItems: "center",
-          margin: "20px auto", 
+          margin: "20px auto",
         }}
       >
         <Grid container spacing={3}>

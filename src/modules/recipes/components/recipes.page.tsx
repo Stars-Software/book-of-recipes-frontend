@@ -1,26 +1,29 @@
 import { Box, Button, CssBaseline, Grid } from "@mui/material";
 import React from "react";
-import { ProductItem } from "./element/recipe.element";
-import { Product } from "../../common/types/product.types";
+import { RecipeItem } from "./element/recipe.element";
 import MenuAppBar from "../../common/components/menu-app-bar/menu-app-bar";
 import Filter from "../../common/components/filter/filter.component";
 import { useNavigate } from "react-router-dom";
 import { ROUTER_KEYS } from "../../common/consts/app-keys.const";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store/store";
+import Preloader from "../../common/components/preloader/preloader";
 
 type IProps = {
-  list: Product[];
-  categories: any[];
   filter: string;
   filterHandler: (arg: string) => void;
 };
 
-export const ProductsList: React.FC<IProps> = React.memo((props) => {
-  const { categories, list, filter, filterHandler } = props;
+export const RecipeList: React.FC<IProps> = React.memo((props) => {
+  const { filter, filterHandler } = props;
+  const { data, categories } = useSelector((state: RootState) => state.recipes);
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate(ROUTER_KEYS.PRODUCTS + ROUTER_KEYS.NEW);
+    navigate(ROUTER_KEYS.RECIPES_NEW);
   };
+
+  if (!data || !categories) return <Preloader />;
 
   return (
     <>
@@ -37,13 +40,13 @@ export const ProductsList: React.FC<IProps> = React.memo((props) => {
           width: "100%",
           justifyContent: "center",
           alignItems: "center",
-          margin: "20px auto", 
+          margin: "20px auto",
         }}
       >
         <Grid container spacing={3}>
-          {list.map((item: any) => (
+          {data.map((item: any) => (
             <Grid item xs={12} sm={6} md={4} key={item.id}>
-              <ProductItem {...item} categories={categories} />
+              <RecipeItem {...item} categories={categories} />
             </Grid>
           ))}
         </Grid>

@@ -17,17 +17,15 @@ type Props = {
   title: string;
   amount: number;
   categoryId: string;
-  product_categories: any;
   categories: any[];
 };
 
-export const ProductItem: React.FC<Props> = (props) => {
+export const RecipeItem: React.FC<Props> = (props) => {
   const {
     id,
     title,
     amount,
     categoryId,
-    product_categories,
     categories,
   } = props;
   return (
@@ -36,21 +34,22 @@ export const ProductItem: React.FC<Props> = (props) => {
         <CardMedia
           component="img"
           sx={{ height: 140 }}
-          image={`http://localhost:4200/categories/${product_categories.image}`}
-          alt="Here is the picture of product"
+          image={`https://source.unsplash.com/random`}
+          alt="Here is the picture of recipe"
         />
       </CardActionArea>
       <CardContent>
         <Stack direction="column" spacing={2} margin={2}>
-          <Divider />
-          <Typography variant="h4" component="div" gutterBottom>
-            {title}
-          </Typography>
+          <Divider>
+            <Typography variant="h4" component="div" gutterBottom>
+              {title}
+            </Typography>
+          </Divider>
           <Typography variant="body2" color="text.secondary">
             Amount: <Chip label={amount} />
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Category: <Chip label={product_categories.title} />
+            {/* Category: <Chip label={product_categories.title} /> */}
           </Typography>
           <ProductActions
             id={id}

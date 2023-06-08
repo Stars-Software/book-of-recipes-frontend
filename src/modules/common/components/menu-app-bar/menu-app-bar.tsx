@@ -45,7 +45,7 @@ const MenuAppBar: React.FC = () => {
           <MenuItem onClick={handleMenuItemClick(ROUTER_KEYS.PRODUCTS)}>
             Products
           </MenuItem>
-          <MenuItem onClick={handleMenuItemClick(ROUTER_KEYS.REGISTER)}>
+          <MenuItem onClick={handleMenuItemClick(ROUTER_KEYS.RECIPES)}>
             Recipes
           </MenuItem>
           <MenuItem onClick={handleMenuItemClick(ROUTER_KEYS.PROFILE)}>

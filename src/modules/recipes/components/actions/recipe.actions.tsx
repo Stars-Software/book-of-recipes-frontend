@@ -9,7 +9,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import React from "react";
 import UpdateProductForm from "../forms/update.recipe.form";
 import { useDispatch } from "react-redux";
-import { deleteProductThunk } from "../../../../redux/thunks/products.thunks";
+import { deleteRecipeThunk } from "../../../../redux/thunks/recipe.thunks";
+
 
 type Props = {
   id: string;
@@ -18,10 +19,10 @@ type Props = {
   categories: any[];
 };
 
-const ProductActions: React.FC<Props> = React.memo((props) => {
+const RecipeAction: React.FC<Props> = React.memo((props) => {
   const dispatch = useDispatch<any>();
   const onDelete = () => {
-    dispatch(deleteProductThunk(props.id));
+    dispatch(deleteRecipeThunk(props.id));
   };
 
   return (
@@ -43,4 +44,4 @@ const ProductActions: React.FC<Props> = React.memo((props) => {
   );
 });
 
-export default ProductActions;
+export default RecipeAction;
