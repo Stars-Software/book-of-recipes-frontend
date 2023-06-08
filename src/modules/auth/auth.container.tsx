@@ -62,11 +62,11 @@ const AuthRedirect = (Component: React.FC<any>) => {
       }
     }, [error, loading, memoizedRefreshSession, memoizedLogOut, navigate]);
 
-    useEffect(() => {
-      if (authed) {
-        memoizedGetGeoCode();
-      }
-    }, [authed, memoizedGetGeoCode]);
+    // useEffect(() => {
+    //   if (authed) {
+    //     memoizedGetGeoCode();
+    //   }
+    // }, [authed, memoizedGetGeoCode]);
 
     return <Component {...props} />;
   };

@@ -2,13 +2,28 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Button,
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import React from "react";
-import { UpdateProductForm } from "../forms/update.product.form";
+import UpdateProductForm from "../forms/update.product.form";
+import { useDispatch } from "react-redux";
+import { deleteProductThunk } from "../../../../redux/thunks/products.thunks";
 
-const ProductActions = () => {
+type Props = {
+  id: string;
+  categoryId: string;
+  amount: number;
+  categories: any[];
+};
+
+const ProductActions: React.FC<Props> = React.memo((props) => {
+  const dispatch = useDispatch<any>();
+  const onDelete = () => {
+    dispatch(deleteProductThunk(props.id));
+  };
+
   return (
     <div>
       <Accordion>
@@ -20,16 +35,12 @@ const ProductActions = () => {
           <Typography>Actions</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <UpdateProductForm
-            id={""}
-            categoryId={""}
-            amount={0}
-            categories={[]}
-          />
+          <UpdateProductForm {...props} />
+          <Button onClick={onDelete}>Delete</Button>
         </AccordionDetails>
       </Accordion>
     </div>
   );
-};
+});
 
 export default ProductActions;

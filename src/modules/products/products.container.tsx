@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { ConnectedProps, connect, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { connect, ConnectedProps, useSelector } from "react-redux";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../../redux/store/store";
 import AuthRedirect from "../auth/auth.container";
@@ -29,24 +29,20 @@ const ProductsContainer: React.FC<PropsFromRedux> = ({
   const { data, categories } = useSelector(
     (state: RootState) => state.products
   );
-  const { loading } = useSelector((state: RootState) => state.app);
 
-  const memoizedFetchCategories = useCallback(() => {
+  useEffect(() => {
     fetchProductCategories();
   }, [fetchProductCategories]);
 
-  const memoizedFetchProducts = useCallback(() => {
+  useEffect(() => {
     fetchProducts(filter);
   }, [fetchProducts, filter]);
 
-  useEffect(() => {
-    memoizedFetchCategories();
-    memoizedFetchProducts();
-  }, [memoizedFetchCategories, memoizedFetchProducts]);
-
-  if (loading || !data || !categories) {
+  if (!data || !categories) {
     return <Preloader />;
   }
+
+  console.log("render");
 
   return (
     <ProductsList

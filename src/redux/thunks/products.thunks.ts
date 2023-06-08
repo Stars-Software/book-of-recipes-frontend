@@ -1,6 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { productService } from "../../services/http-service/products.service";
-import { setCategories, setProducts } from "../slices/productsSlice";
+import {
+  deleteProduct,
+  setCategories,
+  setProducts,
+  updateProduct,
+} from "../slices/productsSlice";
 import { setError } from "../slices/app.slice";
 
 export const fetchProducts = createAsyncThunk(
@@ -16,12 +21,38 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
-export const updateProduct = createAsyncThunk(
-  "products/updateProduct",
-  async (productId: string, data: any) => {
+export const createProductThunk = createAsyncThunk(
+  "products/createProduct",
+  async (values: any, { dispatch }) => {
     try {
-      await productService.updateProduct(productId, data);
-    } catch (error) {}
+      await productService.createProduct(values);
+    } catch (error) {
+      dispatch(setError(error));
+    }
+  }
+);
+
+export const updateProductThunk = createAsyncThunk(
+  "products/updateProduct",
+  async (values: any, { dispatch }) => {
+    try {
+      const { data } = await productService.updateProduct(values);
+      dispatch(updateProduct(data));
+    } catch (error) {
+      dispatch(setError(error));
+    }
+  }
+);
+
+export const deleteProductThunk = createAsyncThunk(
+  "products/deleProduct",
+  async (id: string, { dispatch }) => {
+    try {
+      await productService.deleteProduct(id);
+      dispatch(deleteProduct(id));
+    } catch (error) {
+      dispatch(setError(error));
+    }
   }
 );
 
@@ -32,6 +63,7 @@ export const fetchProductCategories = createAsyncThunk(
       const { data } = await productService.getCategories();
       dispatch(setCategories(data));
     } catch (error) {
+      console.log(error);
       dispatch(setError(error));
     }
   }

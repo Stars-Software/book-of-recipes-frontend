@@ -10,6 +10,5 @@ export const getHeaders = (route: string = "") => {
     return { headers: { ...headers, "Content-Type": "multipart/form-data" } };
   }
 
-  console.log(headers);
   return { headers };
 };

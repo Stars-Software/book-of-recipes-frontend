@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Product } from "../../modules/common/types/product.types";
 
 type IState = {
   data: any[] | null;
@@ -18,11 +17,18 @@ const productsSlice = createSlice({
     setProducts(state: IState, { payload }) {
       state.data = payload;
     },
-    updateProduct(state: IState, action) {
-      const { id, amount } = action.payload;
-      state.data = state.data!.map((item: Product) => {
-        if ((item.id = id)) item.amount = amount;
+    updateProduct(state: IState, { payload }) {
+      const { id } = payload;
+      state.data = state.data!.map((item: any) => {
+        if (item.id === id) {
+          item = payload;
+        }
         return item;
+      });
+    },
+    deleteProduct(state: IState, { payload }) {
+      state.data = state.data!.filter((item: any) => {
+        if (item.id !== payload) return item;
       });
     },
     setCategories(state: IState, { payload }) {
@@ -36,4 +42,5 @@ export const {
   setProducts,
   updateProduct,
   setCategories,
+  deleteProduct,
 } = productsSlice.actions;

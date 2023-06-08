@@ -14,8 +14,16 @@ export class ProductService extends HttpService {
     return await this.get(`/categories/products`);
   }
 
-  async updateProduct(productId: string, data: any) {
-    return await this.put(`${ROUTER_KEYS.PRODUCTS}/${productId}`, data);
+  async updateProduct(product: any) {
+    return await this.put(`${ROUTER_KEYS.PRODUCTS}/${product.id}`, product);
+  }
+
+  async deleteProduct(id: string) {
+    return await this.delete(`${ROUTER_KEYS.PRODUCTS}/${id}`);
+  }
+
+  async createProduct(product: any) {
+    return await this.post(ROUTER_KEYS.PRODUCTS, product);
   }
 }
 

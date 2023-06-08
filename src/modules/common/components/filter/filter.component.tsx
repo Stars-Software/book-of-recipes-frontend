@@ -13,13 +13,19 @@ type Props<T extends Option> = {
   handler: (arg: string) => void;
 };
 
-const Filter = <T extends Option>({ options, value, handler }: Props<T>) => {
+const Filter = <T extends Option>({
+  options,
+  value,
+  handler,
+}: Props<T>) => {
   const getLabel = (option: T) => option.title;
 
   const onChange = (_event: React.ChangeEvent<{}>, value: T | null) => {
+    console.log(value)
     if (!value) {
       handler("");
     } else {
+      console.log(value.id)
       handler(value.id);
     }
   };
@@ -27,7 +33,6 @@ const Filter = <T extends Option>({ options, value, handler }: Props<T>) => {
   return (
     <Autocomplete
       disablePortal
-      id="combo-box-demo"
       onChange={onChange}
       options={options}
       value={options.find((option) => option.id === value) || null}

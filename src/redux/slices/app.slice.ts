@@ -34,7 +34,6 @@ const appSlice = createSlice({
     builder.addMatcher(
       (action) => action.type.endsWith("/fulfilled") || action.type.endsWith("/rejected"),
       (state) => {
-        console.log(Object.keys(state).some(isPending))
         state.loading = Object.keys(state).some(isPending);
       }
     );
