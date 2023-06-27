@@ -6,10 +6,10 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import React from "react";
-import { ChangePasswordForm } from "./password/password";
-import { ChangeAvatar } from "./avatar/avatar";
+import { ChangeAvatar } from "./forms/avatar";
+import ChangePasswordForm from "./forms/password";
 
-export const ProfileSettings = () => {
+const ProfileSettings = () => {
   return (
     <div>
       <Accordion>
@@ -39,3 +39,5 @@ export const ProfileSettings = () => {
     </div>
   );
 };
+
+export default ProfileSettings;

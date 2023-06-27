@@ -3,14 +3,11 @@ import { connect, ConnectedProps, useSelector } from "react-redux";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../../redux/store/store";
 import AuthRedirect from "../auth/auth.container";
-import Preloader from "../common/components/preloader/preloader";
 import {
   fetchProductCategories,
   fetchProducts,
 } from "../../redux/thunks/products.thunks";
-import List from "../common/components/list/list";
-import { ProductItem } from "./components/element/product-element.component";
-import { ROUTER_KEYS } from "../common/consts/app-keys.const";
+import ProductsPage from "./components/products.page";
 
 const mapDispatchToProps = (dispatch: AppDispatch) => {
   return bindActionCreators(
@@ -27,9 +24,8 @@ const ProductsContainer: React.FC<PropsFromRedux> = ({
   fetchProductCategories,
   fetchProducts,
 }) => {
-  const { data, categories } = useSelector(
-    (state: RootState) => state.products
-  );
+  const productState = useSelector((state: RootState) => state.products);
+  const { loading } = useSelector((state: RootState) => state.app);
 
   useEffect(() => {
     fetchProductCategories();
@@ -39,18 +35,7 @@ const ProductsContainer: React.FC<PropsFromRedux> = ({
     fetchProducts("");
   }, [fetchProducts]);
 
-  if (!data || !categories) {
-    return <Preloader />;
-  }
-
-  return (
-    <List
-      Component={ProductItem}
-      list={data}
-      categories={categories}
-      navigation={ROUTER_KEYS.PRODUCTS_NEW}
-    />
-  );
+  return <ProductsPage {...{ ...productState, loading }} />;
 };
 
 export default connector(AuthRedirect(ProductsContainer));

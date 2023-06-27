@@ -47,7 +47,7 @@ const CreateProductForm: React.FC<PropsFromRedux> = ({
     onSubmit,
   });
 
-  if (!categories) return <Preloader />;
+  // if (!categories) return <Preloader />;
 
   return (
     <Container
@@ -82,7 +82,7 @@ const CreateProductForm: React.FC<PropsFromRedux> = ({
             value={formik.values.amount}
           />
           <Filter
-            options={categories}
+            options={categories!}
             value={formik.values.categoryId}
             handler={(id) => formik.setFieldValue("categoryId", id)}
           />

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { FormContainer } from "../../../../../common/components/form/form.container";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { FormContainer } from "../../../../common/components/form/form.container";
 import { useFormik } from "formik";
 import {
   Button,
@@ -10,7 +10,8 @@ import {
   TextField,
 } from "@mui/material";
 
-export const ChangePasswordForm = () => {
+
+ const ChangePasswordForm = () => {
   const [hidden, setHidden] = useState(false);
 
   const formik = useFormik({
@@ -58,3 +59,5 @@ export const ChangePasswordForm = () => {
     </FormContainer>
   );
 };
+
+export default ChangePasswordForm;

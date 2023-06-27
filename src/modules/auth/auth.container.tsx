@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { Suspense, useCallback, useEffect } from "react";
 import { connect, ConnectedProps, useSelector } from "react-redux";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import {
   refreshSession,
 } from "../../redux/thunks/profile.thunks";
 import { ROUTER_KEYS } from "../common/consts/app-keys.const";
+import Preloader from "../common/components/preloader/preloader";
 
 const mapDispatchToProps = (dispatch: AppDispatch) => {
   return bindActionCreators(
@@ -25,7 +26,6 @@ const AuthRedirect = (Component: React.FC<any>) => {
   const RedirectComponent: React.FC<PropsFromRedux> = (props) => {
     const { refreshSession, logOutProfile, getGeoCode } = props;
     const { error, loading } = useSelector((state: RootState) => state.app);
-    const { authed } = useSelector((state: RootState) => state.profile);
     const navigate = useNavigate();
 
     const memoizedRefreshSession = useCallback(() => {
@@ -36,9 +36,9 @@ const AuthRedirect = (Component: React.FC<any>) => {
       logOutProfile();
     }, [logOutProfile]);
 
-    const memoizedGetGeoCode = useCallback(() => {
-      getGeoCode();
-    }, []);
+    // const memoizedGetGeoCode = useCallback(() => {
+    //   getGeoCode();
+    // }, []);
 
     useEffect(() => {
       const handleBeforeUnload = () => {

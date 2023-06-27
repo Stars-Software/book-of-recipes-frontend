@@ -42,7 +42,7 @@ const UpdateRecipeForm: React.FC<Props> = (props) => {
     onSubmit,
   });
 
-  if (!data) return <Preloader />;
+  // if (!data) return <Preloader />;
 
   const handleAddProduct = () => {
     formik.setValues({
@@ -74,7 +74,7 @@ const UpdateRecipeForm: React.FC<Props> = (props) => {
           {formik.values.products.map((product, index) => (
             <div key={index}>
               <Filter
-                options={data}
+                options={data!}
                 value={product.id}
                 handler={(id) =>
                   formik.setFieldValue(`products[${index}].id`, id)

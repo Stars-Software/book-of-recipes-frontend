@@ -7,12 +7,12 @@ type AppError = {
 
 type State = {
   error: AppError | null;
-  loading: boolean;
+  loading: number;
 };
 
 const initialState: State = {
   error: null,
-  loading: false,
+  loading: 0,
 };
 
 const appSlice = createSlice({
@@ -28,13 +28,14 @@ const appSlice = createSlice({
       (action) => action.type.endsWith("/pending"),
       (state) => {
         state.error = null;
-        state.loading = true;
+        state.loading += 1;
       }
     );
     builder.addMatcher(
-      (action) => action.type.endsWith("/fulfilled") || action.type.endsWith("/rejected"),
+      (action) =>
+        action.type.endsWith("/fulfilled") || action.type.endsWith("/rejected"),
       (state) => {
-        state.loading = Object.keys(state).some(isPending);
+        state.loading -= 1;
       }
     );
   },

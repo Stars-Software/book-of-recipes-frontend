@@ -1,12 +1,11 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
+import { AppDispatch, RootState } from "../../redux/store/store";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { fetchProfile } from "../../redux/thunks/profile.thunks";
-import { connect, ConnectedProps, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store/store";
+import { ConnectedProps, connect, useSelector } from "react-redux";
 import AuthRedirect from "../auth/auth.container";
-import ProfilePage from "./components/profile-page";
-import Preloader from "../common/components/preloader/preloader";
-2
+import ProfilePage from "./components/profile.page";
+
 const mapDispatchToProps = (dispatch: AppDispatch) => {
   return bindActionCreators({ fetchProfile }, dispatch);
 };
@@ -16,17 +15,14 @@ const connector = connect(null, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 const ProfileContainer: React.FC<PropsFromRedux> = ({ fetchProfile }) => {
+  const { loading } = useSelector((state: RootState) => state.app);
   const { data } = useSelector((state: RootState) => state.profile);
 
-  const memoizedFetchProfile = useCallback(() => {
-    fetchProfile();
-  }, [fetchProfile]);
-
   useEffect(() => {
-    memoizedFetchProfile();
+    fetchProfile();
   }, []);
 
-  return <>{data ? <ProfilePage {...data} /> : <Preloader />}</>;
+  return <ProfilePage {...{ loading, data }} />;
 };
 
 export default connector(AuthRedirect(ProfileContainer));

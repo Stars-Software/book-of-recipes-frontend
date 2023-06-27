@@ -69,7 +69,7 @@ const CreateRecipeForm: React.FC<{}> = () => {
     onSubmit,
   });
 
-  if (!categories || !data) return <Preloader />;
+  // if (!categories || !data) return <Preloader />;
 
   const handleAddProduct = () => {
     formik.setValues({
@@ -124,7 +124,7 @@ const CreateRecipeForm: React.FC<{}> = () => {
               label="Private"
             />
             <Filter
-              options={categories}
+              options={categories!}
               value={formik.values.categoryId}
               handler={(id) => formik.setFieldValue("categoryId", id)}
             />
@@ -132,7 +132,7 @@ const CreateRecipeForm: React.FC<{}> = () => {
             {formik.values.products.map((product, index) => (
               <div key={index}>
                 <Filter
-                  options={data}
+                  options={data!}
                   value={product.id}
                   handler={(id) =>
                     formik.setFieldValue(`products[${index}].id`, id)

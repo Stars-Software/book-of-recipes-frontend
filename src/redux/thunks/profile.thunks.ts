@@ -5,7 +5,7 @@ import { AuthFormData, SignIn } from "../../modules/common/types/auth.types";
 import { tokenService } from "../../services/token-service/access-token.service";
 import { setError } from "../slices/app.slice";
 import { geolocationService } from "../../services/geo-service/geo.service";
-import { ResponseError } from "../../modules/common/types/error.types";
+
 
 export const signInProfile = createAsyncThunk(
   "profile/signIn",

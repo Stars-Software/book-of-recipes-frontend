@@ -2,13 +2,13 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Home } from "../home/home";
 import { ROUTER_KEYS } from "../common/consts/app-keys.const";
-import ProfileContainer from "../profile/profile-container";
 import ProductsContainer from "../products/products.container";
 import RegisterContainer from "../register/register.container";
 import SnackBar from "../snackbar/snackbar.component";
 import CreateProductForm from "../products/components/forms/create.product.form";
 import RecipesContainer from "../recipes/recipes.container";
 import CreateRecipeForm from "../recipes/components/forms/create.recipe.form";
+import ProfileContainer from "../profile/profile.container";
 
 export const MainRouter = () => (
   <Router>

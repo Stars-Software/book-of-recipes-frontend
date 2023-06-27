@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect, ConnectedProps, useSelector } from "react-redux";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../../redux/store/store";
 import AuthRedirect from "../auth/auth.container";
-import Preloader from "../common/components/preloader/preloader";
-import List from "../common/components/list/list";
-import { ROUTER_KEYS } from "../common/consts/app-keys.const";
-import { RecipeItem } from "./components/element/recipe.element";
 import {
   fetchRecipeCategories,
   fetchRecipes,
 } from "../../redux/thunks/recipe.thunks";
+import RecipesPage from "./components/recipes.page";
 
 const mapDispatchToProps = (dispatch: AppDispatch) => {
   return bindActionCreators({ fetchRecipeCategories, fetchRecipes }, dispatch);
@@ -24,30 +21,18 @@ const ProductsContainer: React.FC<PropsFromRedux> = ({
   fetchRecipeCategories,
   fetchRecipes,
 }) => {
-
-  const { data, categories } = useSelector((state: RootState) => state.recipes);
+  const recipesState = useSelector((state: RootState) => state.recipes);
+  const { loading } = useSelector((state: RootState) => state.app);
 
   useEffect(() => {
     fetchRecipeCategories();
   }, [fetchRecipeCategories]);
 
   useEffect(() => {
-    fetchRecipes('');
+    fetchRecipes("");
   }, [fetchRecipes]);
 
-
-  if (!data || !categories) {
-    return <Preloader />;
-  }
-
-  return (
-    <List
-      Component={RecipeItem}
-      list={data}
-      categories={categories}
-      navigation={ROUTER_KEYS.RECIPES_NEW}
-    />
-  );
+  return <RecipesPage {...{ ...recipesState, loading }} />;
 };
 
 export default connector(AuthRedirect(ProductsContainer));
